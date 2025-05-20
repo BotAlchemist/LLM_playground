@@ -11,22 +11,14 @@ from audiorecorder import audiorecorder
 
 st.set_page_config(layout="wide")
 
-# Load credentials and cookie settings from secrets
-credentials = st.secrets["credentials"]
-cookie = st.secrets["cookie"]
+# Define a fixed passcode
+correct_passcode = st.secrets["APP_PASSCODE"]  # Or hardcode for local testing
 
-# Initialize the authenticator
-authenticator = stauth.Authenticate(
-    credentials,
-    cookie["name"],
-    cookie["key"],
-    cookie["expiry_days"]
-)
-name, authentication_status, username = authenticator.login("Login", "main")
+# Prompt for passcode
+passcode = st.text_input("Enter access code", type="password")
 
-if authentication_status:
-    authenticator.logout("Logout", "sidebar")
-    st.success(f"Welcome {name} 👋")
+if passcode == correct_passcode:
+    st.success(f"Welcome Sumit 👋")
     # Set OpenAI API key from Streamlit secrets
     client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
     
@@ -205,11 +197,8 @@ if authentication_status:
                     st.metric(label="Tokens", value=llm_tokens)
 
 
-elif authentication_status is False:
-    st.error("Username/password is incorrect")
-
-elif authentication_status is None:
-    st.warning("Please enter your credentials")
+elif passcode:
+    st.error("Incorrect access code 🚫")
     
     
     
