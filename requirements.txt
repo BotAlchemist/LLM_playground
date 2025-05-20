@@ -2,3 +2,5 @@ openai>=1.2.4
 streamlit
 streamlit-audiorecorder
 matplotlib
+streamlit-authenticator
+bcrypt  # Required for password hashing used by streamlit-authenticator
