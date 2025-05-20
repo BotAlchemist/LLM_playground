@@ -13,7 +13,7 @@ from audiorecorder import audiorecorder
 st.set_page_config(
     layout="wide",
     page_title="LLM playground",
-    page_icon="🤖🎮"  # You can use emojis like 🪙, 📊, 💵, 📉, etc.
+    page_icon="🤖"  # You can use emojis like 🪙, 📊, 💵, 📉, etc.
 )
 
 # Define a fixed passcode
