@@ -10,17 +10,21 @@ from audiorecorder import audiorecorder
 
 st.set_page_config(layout="wide")
 
+name, authentication_status, username = authenticator.login("Login", "main")
 
-# Set OpenAI API key from Streamlit secrets
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-
-# Optional user input (not used for key modification)
-i_passcode = st.sidebar.text_input("Optional Passcode", type='password')
-
-if len(i_passcode) > 0:
-
-    #------------------------------------------------------------
-
+if authentication_status:
+    authenticator.logout("Logout", "sidebar")
+    st.success(f"Welcome {name} 👋")
+    # Set OpenAI API key from Streamlit secrets
+    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+    
+    # Optional user input (not used for key modification)
+    #i_passcode = st.sidebar.text_input("Optional Passcode", type='password')
+    
+    #if len(i_passcode) > 0:
+    
+        #------------------------------------------------------------
+    
     def encode_image(image_path):
         with open(image_path, "rb") as image_file:
             return base64.b64encode(image_file.read()).decode('utf-8')
@@ -188,22 +192,15 @@ if len(i_passcode) > 0:
                     st.write(llm_output)
                     st.metric(label="Tokens", value=llm_tokens)
 
-                    
 
+elif authentication_status is False:
+    st.error("Username/password is incorrect")
 
-
-
-else:
-    st.info("Please enter your passcode.")
+elif authentication_status is None:
+    st.warning("Please enter your credentials")
     
-    # st.code("sk-proj-7uK5yZ4zEeXyPbrMPJf3sdOrpVHgyEsAHGig94MGVzW1AxdRXF")
-    # st.code("sk-proj-nugHpvIH1whBPpcEVLnktMHfQTNh7n2muDQRrM5wd6DTNsYlJz")
-    # st.code("sk-proj-aVA9zex4cECRIU1kIqZWT3BlbkFJF2wZ0WEuG7tpemSfxubn")
-    # st.code("sk-proj-c4uc7o2F5VGsSYgc1PfUgDtAE6KNC8iMrJRZKVz32Kh0N1Olb3")
-    # st.code("sk-proj-ITf7c0lWVCeNi2DPU3YWobQTAn6evVQlnN9Z7f8pDquTQuVhv")
-    # st.code("sk-proj-nugHpvIH1whBPpcEVLnktMHfQTNh7n2muDQRrM5wd6DTNsYlJj")
-    # st.code("sk-proj-5lNHypFjNexYEkqjNawyXRl0dlR8FNiVjd6GxoLyAtan5ZtXx")
-    # st.code("sk-proj-S4svUFupfUHlH5XRU6nbCuwKuS5E8fhka8Ub3EfkpW7d5QZn")
-    # st.code("sk-proj-7uK5yZ4zEeXyPbrMPJf3sdOrpVHgyEsAHGig94MGVzW1Axdr")
-    # st.code("sk-proj-aVA7zex4cFCRIU0kIqZWT3BlbkFJF2wZ0WEuG7thenYfcubn")
-    # st.code("sk-proj-FIfvIkWdKghp9qaCR7XlLU9EoMu6iYjoSeDVtL3BRtO7pUbo")
+    
+    
+  
+    
+  
