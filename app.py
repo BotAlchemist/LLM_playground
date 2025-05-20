@@ -9,7 +9,12 @@ import os
 from urllib.parse import urlparse
 from audiorecorder import audiorecorder
 
-st.set_page_config(layout="wide")
+# Set Streamlit page configuration
+st.set_page_config(
+    layout="wide",
+    page_title="LLM playground",
+    page_icon="🤖🎮"  # You can use emojis like 🪙, 📊, 💵, 📉, etc.
+)
 
 # Define a fixed passcode
 correct_passcode = st.secrets["APP_PASSCODE"]  # Or hardcode for local testing
