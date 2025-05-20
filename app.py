@@ -15,7 +15,7 @@ st.set_page_config(layout="wide")
 correct_passcode = st.secrets["APP_PASSCODE"]  # Or hardcode for local testing
 
 # Prompt for passcode
-passcode = st.text_input("Enter access code", type="password")
+passcode = st.sidebar.text_input("Enter access code", type="password")
 
 if passcode == correct_passcode:
     st.success(f"Welcome Sumit 👋")
