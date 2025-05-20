@@ -1,8 +1,7 @@
-import streamlit as st  #Web App
-from PIL import Image #Image Processing
-import numpy as np #Image Processing
-from openai import OpenAI
-#import openai
+import streamlit as st  # Web App
+from PIL import Image  # Image Processing
+import numpy as np  # Image Processing
+from openai import OpenAI  # New OpenAI SDK
 import base64
 import json
 import os
@@ -11,18 +10,15 @@ from audiorecorder import audiorecorder
 
 st.set_page_config(layout="wide")
 
-#i_key= 'sk-proj-aVAzex4cFCRIU0kIqZWT3BlbkFJF2wZ0WEuG7themYfcubn'
-i_key= 'sk-proj-iajReYBKXd12Kw4n2F0xXvwP7fHbEowI2O4fT2EkOZaQE2jydpOsxKR4coOWxgS9D1x9W-7IA6T3BlbkFJlPZ1iv2rmgoezm6-EuX-LDGMa21UoC9tWkZphZpQUBPKFCyn-gZAKuiMF3zF2fsyTPbKPGA60'
-i_passcode = st.sidebar.text_input("OpenAI key", type='password')
+
+# Set OpenAI API key from Streamlit secrets
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
+# Optional user input (not used for key modification)
+i_passcode = st.sidebar.text_input("Optional Passcode", type='password')
 
 if len(i_passcode) > 0:
-    #insertion_index= 11
-    #i_key= i_key[:insertion_index] + i_passcode + i_key[insertion_index:]
-    i_key = i_key + i_passcode
-    #----------------- Global variables -------------------------
-    image_folder_path= 'sample_data/'
-    os.environ["OPENAI_API_KEY"]= i_key
-    client = OpenAI()
+
     #------------------------------------------------------------
 
     def encode_image(image_path):
