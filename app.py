@@ -1,4 +1,5 @@
 import streamlit as st  # Web App
+import streamlit_authenticator as stauth
 from PIL import Image  # Image Processing
 import numpy as np  # Image Processing
 from openai import OpenAI  # New OpenAI SDK
