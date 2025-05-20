@@ -12,7 +12,7 @@ from audiorecorder import audiorecorder
 st.set_page_config(layout="wide")
 
 #i_key= 'sk-proj-aVAzex4cFCRIU0kIqZWT3BlbkFJF2wZ0WEuG7themYfcubn'
-i_key= 'sk-proj-gUo7UuBh5llI5FHenFKjT3BlbkFJ01MwxYNzCtIQD9t426H'
+i_key= 'sk-proj-iajReYBKXd12Kw4n2F0xXvwP7fHbEowI2O4fT2EkOZaQE2jydpOsxKR4coOWxgS9D1x9W-7IA6T3BlbkFJlPZ1iv2rmgoezm6-EuX-LDGMa21UoC9tWkZphZpQUBPKFCyn-gZAKuiMF3zF2fsyTPbKPGA60'
 i_passcode = st.sidebar.text_input("OpenAI key", type='password')
 
 if len(i_passcode) > 0:
