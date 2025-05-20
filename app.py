@@ -11,6 +11,17 @@ from audiorecorder import audiorecorder
 
 st.set_page_config(layout="wide")
 
+# Load credentials and cookie settings from secrets
+credentials = st.secrets["credentials"]
+cookie = st.secrets["cookie"]
+
+# Initialize the authenticator
+authenticator = stauth.Authenticate(
+    credentials,
+    cookie["name"],
+    cookie["key"],
+    cookie["expiry_days"]
+)
 name, authentication_status, username = authenticator.login("Login", "main")
 
 if authentication_status:
