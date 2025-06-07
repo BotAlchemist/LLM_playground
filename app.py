@@ -220,9 +220,11 @@ if passcode == correct_passcode:
             
             if is_leetcode:
                 prompt = (
+
                     f"{codebase} code to solve: {co_pilot_prompt} without using OOPS concepts until mentioned. "
                     f"Format it like a Leetcode solution. Code style: {i_level}."
                     f"Add inline comments that reflect the developer's thought process while solving — think-aloud style."
+
                 )
             else:
                 prompt = (
