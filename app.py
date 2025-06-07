@@ -221,7 +221,7 @@ if passcode == correct_passcode:
             if is_leetcode:
                 prompt = (
                     f"{codebase} code to solve: {co_pilot_prompt}. "
-                    f"Format it like a Leetcode solution. Add inline comments for explanation. Code style: {i_level}."
+                    f"Format it like a Leetcode solution without OOPS and classes untill mentioned. Add inline comments for explanation. Code style: {i_level}."
                 )
             else:
                 prompt = (
