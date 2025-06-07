@@ -213,7 +213,7 @@ if passcode == correct_passcode:
         got_response = False
         if st.button("Generate Code") and len(co_pilot_prompt) > 5:
             st.divider()
-            prompt = f"You are an expert {codebase} developer. Only generate the code with comments to help understand the logic. Write as concise as possible. {co_pilot_prompt}"
+            prompt = f"{codebase} code: {co_pilot_prompt}. Leetcode style. Think along explanation in comments."
             llm_output, llm_tokens = get_gpt_response(prompt, i_temperature, i_openai_model)
             got_response = True
 
