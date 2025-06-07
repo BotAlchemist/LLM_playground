@@ -207,21 +207,38 @@ if passcode == correct_passcode:
 #------------------------------------- Co-pilot Page ---------------------------------------------
     elif i_menu == 'Co-pilot':
         codebase = st.selectbox("Select Codebase", ['Python', 'PySpark', 'Snowflake'])
+
         i_level = st.selectbox("Select level", ['Beginner', 'Intermediate', 'Advanced', 'With OOPS'])
         co_pilot_prompt = st.text_area("Prompt", placeholder="Describe the code you want to generate", height=200, key='copilot_key')
+        is_leetcode = st.checkbox("Leetcode?", value=True)
         i_temperature = st.slider(":thermometer:", min_value=0.0, max_value=2.0, value=0.3, step=0.1)
 
         got_response = False
+
         if st.button("Generate Code") and len(co_pilot_prompt) > 2:
             st.divider()
-            prompt = f"{codebase} code to solve: {co_pilot_prompt}. Format it like a Leetcode solution. Add inline comments for explanation. Code style: {i_level}."
+            
+            if is_leetcode:
+                prompt = (
+                    f"{codebase} code to solve: {co_pilot_prompt}. "
+                    f"Format it like a Leetcode solution. Add inline comments for explanation. Code style: {i_level}."
+                )
+            else:
+                prompt = (
+                    f"Generate {codebase} code for: {co_pilot_prompt}. "
+                    f"Add inline comments. Code style: {i_level}."
+                )
+
             llm_output, llm_tokens = get_gpt_response(prompt, i_temperature, i_openai_model)
             got_response = True
 
         if got_response:
-            st.code(llm_output, language=codebase.lower())
+            st.write(prompt)
+            st.divider()
+            st.write(llm_output)
             st.divider()
             st.metric(label="Tokens", value=llm_tokens)
+
 
 #--------------------------------------------------------------------------------------------------
 elif passcode:
