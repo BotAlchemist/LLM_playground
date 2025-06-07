@@ -207,13 +207,14 @@ if passcode == correct_passcode:
 #------------------------------------- Co-pilot Page ---------------------------------------------
     elif i_menu == 'Co-pilot':
         codebase = st.selectbox("Select Codebase", ['Python', 'PySpark', 'Snowflake'])
-        co_pilot_prompt = st.text_area("Prompt", placeholder="Describe the functionality you need", height=200, key='copilot_key')
+        i_level = st.selectbox("Select level", ['Beginner', 'Intermediate', 'Advanced', 'With OOPS'])
+        co_pilot_prompt = st.text_area("Prompt", placeholder="Describe the code you want to generate", height=200, key='copilot_key')
         i_temperature = st.slider(":thermometer:", min_value=0.0, max_value=2.0, value=0.3, step=0.1)
 
         got_response = False
         if st.button("Generate Code") and len(co_pilot_prompt) > 5:
             st.divider()
-            prompt = f"{codebase} code: {co_pilot_prompt}. Leetcode style. Think along explanation in comments."
+            prompt = f"{codebase} code to solve: {co_pilot_prompt}. Format it like a Leetcode solution. Add inline comments for explanation. Difficulty level: {i_level}."
             llm_output, llm_tokens = get_gpt_response(prompt, i_temperature, i_openai_model)
             got_response = True
 
