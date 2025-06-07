@@ -214,7 +214,7 @@ if passcode == correct_passcode:
         got_response = False
         if st.button("Generate Code") and len(co_pilot_prompt) > 5:
             st.divider()
-            prompt = f"{codebase} code to solve: {co_pilot_prompt}. Format it like a Leetcode solution. Add inline comments for explanation. Difficulty level: {i_level}."
+            prompt = f"{codebase} code to solve: {co_pilot_prompt}. Format it like a Leetcode solution. Add inline comments for explanation. Code style: {i_level}."
             llm_output, llm_tokens = get_gpt_response(prompt, i_temperature, i_openai_model)
             got_response = True
 
