@@ -212,7 +212,7 @@ if passcode == correct_passcode:
         i_temperature = st.slider(":thermometer:", min_value=0.0, max_value=2.0, value=0.3, step=0.1)
 
         got_response = False
-        if st.button("Generate Code") and len(co_pilot_prompt) > 5:
+        if st.button("Generate Code") and len(co_pilot_prompt) > 2:
             st.divider()
             prompt = f"{codebase} code to solve: {co_pilot_prompt}. Format it like a Leetcode solution. Add inline comments for explanation. Code style: {i_level}."
             llm_output, llm_tokens = get_gpt_response(prompt, i_temperature, i_openai_model)
