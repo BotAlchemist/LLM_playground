@@ -205,13 +205,33 @@ if passcode == correct_passcode:
 
 
 #------------------------------------- Co-pilot Page ---------------------------------------------
+    
     elif i_menu == 'Co-pilot':
         codebase = st.selectbox("Select Codebase", ['Python', 'PySpark', 'Snowflake'])
 
         i_level = st.selectbox("Select level", ['Beginner', 'Intermediate', 'Advanced', 'With OOPS'])
-        co_pilot_prompt = st.text_area("Prompt", placeholder="Describe the code you want to generate", height=200, key='copilot_key')
         is_leetcode = st.checkbox("Leetcode?", value=True)
         i_temperature = st.slider(":thermometer:", min_value=0.0, max_value=2.0, value=0.3, step=0.1)
+
+        # Optional audio input
+        st.markdown("### 🎤 Say your prompt (optional)")
+        audio = audiorecorder("Click to record", "Click to stop recording")
+        voice_prompt = ""
+        
+        if len(audio) > 0:
+            st.audio(audio.export().read())  # Playback
+            audio.export("copilot_audio.wav", format="wav")
+            
+            with open("copilot_audio.wav", "rb") as f:
+                transcription = client.audio.transcriptions.create(
+                    model="whisper-1",
+                    file=f
+                )
+            voice_prompt = transcription.text
+            st.success("Transcription received")
+
+        # Text input area with prefilled voice_prompt if available
+        co_pilot_prompt = st.text_area("Prompt", value=voice_prompt, placeholder="Describe the code you want to generate", height=200, key='copilot_key')
 
         got_response = False
 
@@ -227,7 +247,7 @@ if passcode == correct_passcode:
             else:
                 prompt = (
                     f"Generate {codebase} code for: {co_pilot_prompt} without using OOPS concepts until mentioned. "
-                    f" Code style: {i_level}."
+                    f"Code style: {i_level}."
                     f"Add inline comments that reflect the developer's thought process while solving — think-aloud style."
                 )
 
@@ -240,6 +260,11 @@ if passcode == correct_passcode:
             st.write(llm_output)
             st.divider()
             st.metric(label="Tokens", value=llm_tokens)
+
+        # Optional: cleanup audio file
+        if os.path.exists("copilot_audio.wav"):
+            os.remove("copilot_audio.wav")
+
 
 
 #--------------------------------------------------------------------------------------------------
