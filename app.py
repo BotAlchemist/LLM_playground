@@ -220,13 +220,15 @@ if passcode == correct_passcode:
             
             if is_leetcode:
                 prompt = (
-                    f"{codebase} code to solve: {co_pilot_prompt}. "
-                    f"Format it like a Leetcode solution. Add inline comments for explanation. Code style: {i_level}."
+                    f"{codebase} code to solve: {co_pilot_prompt} without using OOPS concepts until mentioned. "
+                    f"Format it like a Leetcode solution. Code style: {i_level}."
+                    f"Add inline comments that reflect the developer's thought process while solving — think-aloud style."
                 )
             else:
                 prompt = (
-                    f"Generate {codebase} code for: {co_pilot_prompt}. "
-                    f"Add inline comments. Code style: {i_level}."
+                    f"Generate {codebase} code for: {co_pilot_prompt} without using OOPS concepts until mentioned. "
+                    f" Code style: {i_level}."
+                    f"Add inline comments that reflect the developer's thought process while solving — think-aloud style."
                 )
 
             llm_output, llm_tokens = get_gpt_response(prompt, i_temperature, i_openai_model)
