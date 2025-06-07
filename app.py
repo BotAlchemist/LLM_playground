@@ -202,6 +202,27 @@ if passcode == correct_passcode:
                     st.metric(label="Tokens", value=llm_tokens)
 
 
+
+
+#------------------------------------- Co-pilot Page ---------------------------------------------
+    elif i_menu == 'Co-pilot':
+        codebase = st.selectbox("Select Codebase", ['Python', 'PySpark', 'Snowflake'])
+        co_pilot_prompt = st.text_area("Prompt", placeholder="Describe the functionality you need", height=200, key='copilot_key')
+        i_temperature = st.slider(":thermometer:", min_value=0.0, max_value=2.0, value=0.3, step=0.1)
+
+        got_response = False
+        if st.button("Generate Code") and len(co_pilot_prompt) > 5:
+            st.divider()
+            prompt = f"You are an expert {codebase} developer. Only generate the code with comments to help understand the logic. Write as concise as possible. {co_pilot_prompt}"
+            llm_output, llm_tokens = get_gpt_response(prompt, i_temperature, i_openai_model)
+            got_response = True
+
+        if got_response:
+            st.code(llm_output, language=codebase.lower())
+            st.divider()
+            st.metric(label="Tokens", value=llm_tokens)
+
+#--------------------------------------------------------------------------------------------------
 elif passcode:
     st.error("Incorrect access code 🚫")
     
