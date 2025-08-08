@@ -83,6 +83,7 @@ if passcode == correct_passcode:
             got_response= True
         
         if got_response:
+            st.text_area("Response:", llm_output, height=500)
             st.write(llm_output)
             st.divider()
             st.metric(label="Tokens", value=llm_tokens)
